@@ -11,6 +11,8 @@ def getDefinition(word, browser):
     browser.get('https://en.wiktionary.org/wiki/{}'.format(word))
     try:
         orderedlist = browser.find_element_by_tag_name('ol').text
+        if "quotations ▼" in orderedlist:
+            orderedlist = orderedlist.replace('quotations ▼', '')
     except Exception as e:
         orderedlist = "Error: Could not find definition"
     return orderedlist
