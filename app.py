@@ -94,6 +94,8 @@ def index():
                 succ = 'Good job!'
                 if userword in sub5words:
                     special = "Rare word!"
+                else:
+                    special = None
                 possible_solutions = [e for e in english_dict if syll in e]
                 possible_longs = [p for p in possible_solutions if len(p) >= 20]
                 possible_longs = possible_longs[:3]
