@@ -46,6 +46,13 @@ with open("sowpods.txt", "r") as wordlist:
 
     print("Filter complete!")
 
+print("Collecting sub5 words...")
+with open('SUB5.txt', 'r') as sub5s:
+    sub5words = sub5s.read().splitlines()
+    sub5words = [s.lower() for s in sub5words]
+
+print("Sub5 words loaded!")
+
 def generate_prompt():
     return choice(syllable_list)
 
@@ -85,10 +92,12 @@ def index():
                 return render_template('index.html', syll=syll, err=err_code, succ=None, sols=possible_solutions, longs=possible_longs)
             else:
                 succ = 'Good job!'
+                if userword in sub5words:
+                    special = "Rare word!"
                 possible_solutions = [e for e in english_dict if syll in e]
                 possible_longs = [p for p in possible_solutions if len(p) >= 20]
                 possible_longs = possible_longs[:3]
-                return render_template('index.html', syll=some_syllable, err=None, succ=succ, longs=possible_longs)
+                return render_template('index.html', syll=some_syllable, err=None, succ=succ, longs=possible_longs, spec=special)
             # err_code = False
             # return redirect(url_for('index', syll=some_syllable))
         # return redirect(url_for('index'))
